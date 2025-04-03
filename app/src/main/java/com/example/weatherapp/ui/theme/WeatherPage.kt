@@ -46,7 +46,7 @@ fun WeatherPage(viewModel: WeatherViewModel){
     }
     val weatherResult = viewModel.weatherResult.observeAsState()
 
-    val keyboardController = LocalSoftwareKeyboardController.current
+    //val keyboardController = LocalSoftwareKeyboardController.current
     Column(
         modifier = Modifier.fillMaxWidth().padding(8.dp),
         horizontalAlignment = Alignment.CenterHorizontally
@@ -68,20 +68,24 @@ fun WeatherPage(viewModel: WeatherViewModel){
                }
                 )
                 IconButton(onClick = {
-                    if (city.isNotBlank()) {
-                        viewModel.getData(city)
-                        keyboardController?.hide()
-                    } else {
-                        Log.e("WeatherPage", "City name is empty!")
-                    }
-                }) {
-
-                viewModel.getData(city)
-                keyboardController?.hide()
-                Icon(imageVector = Icons.Default.Search,
-                    contentDescription = "Search for any location"
-                    )
-            }
+                    //if (city.isNotBlank()) {
+                    viewModel.getData(city)
+                }){
+                    Icon(imageVector = Icons.Default.Search,
+                        contentDescription = "Search Button")
+                }
+                       // keyboardController?.hide()
+//                    } else {
+//                        Log.e("WeatherPage", "City name is empty!")
+//                    }
+//                }) {
+//
+//                viewModel.getData(city)
+//                keyboardController?.hide()
+//                Icon(imageVector = Icons.Default.Search,
+//                    contentDescription = "Search for any location"
+//                    )
+//            }
         }
         when(val result = weatherResult.value){
             is NetworkResponse.Error -> {
@@ -93,9 +97,7 @@ fun WeatherPage(viewModel: WeatherViewModel){
             is NetworkResponse.Success -> {
                 WeatherDetails(data = result.data)
             }
-            null -> {
-                Text(text = "Enter a city to fetch weather data")
-            }
+            null -> {}
         }
     }
 }
@@ -123,11 +125,16 @@ fun WeatherDetails(data : WeatherModel) {
         }
         Spacer(modifier = Modifier.height(16.dp))
         Text(
-            text = " ${data.current.temp_c} °c",
+            text = " ${data.current.temp_c} °C",
             fontSize = 56.sp,
             fontWeight = FontWeight.Bold,
             textAlign = TextAlign.Center
         )
+//        @Preview(showSystemUi = true)
+//        @Composable
+//        fun previewFunction(){
+//            weatherPage(Modifier,weatherViewModel())
+//        }
 
         AsyncImage(
             modifier = Modifier.size(160.dp),
