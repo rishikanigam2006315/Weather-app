@@ -29,8 +29,7 @@ class WeatherViewModel :ViewModel(){
                 Log.d("WeatherViewModel", "API Request: https://api.weatherapi.com/v1/current.json?key=${Constant.apikey}&q=$city")
                 val response = weatherApi.getWeather(Constant.apikey, city)
                 withContext(Dispatchers.Main) {
-//                val response = weatherApi.getWeather(Constant.apikey, city)
-//                Log.d("WeatherViewModel", "API Response: ${response.raw()}")
+//
                     if (response.isSuccessful) {
                         response.body()?.let {
                             _weatherResult.value = NetworkResponse.Success(it)
@@ -49,8 +48,7 @@ class WeatherViewModel :ViewModel(){
                 withContext(Dispatchers.Main) {
                     _weatherResult.value = NetworkResponse.Error("Failed to load data: ${e.localizedMessage}")
                 }
-//                Log.e("WeatherViewModel", "API Call Failed", e)
-//                _weatherResult.value = NetworkResponse.Error("Failed to load data: ${e.message}")
+//
             }
         }
 
