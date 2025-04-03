@@ -74,6 +74,7 @@ fun WeatherPage(viewModel: WeatherViewModel){
                     Icon(imageVector = Icons.Default.Search,
                         contentDescription = "Search Button")
                 }
+
         }
         when(val result = weatherResult.value){
             is NetworkResponse.Error -> {
